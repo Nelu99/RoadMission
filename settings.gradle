@@ -1,4 +1,2 @@
 rootProject.name='Road Mission'
-include ':mobile'
 include ':automotive'
-include ':shared'
