@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MiddleFragment">
+
+    <Space
+        android:layout_width="match_parent"
+        android:layout_alignParentTop="true"
+        android:id="@+id/top_space"
+        android:layout_height="?attr/actionBarSize"/>
+
+    <ImageButton
+        android:id="@+id/logo_button"
+        android:layout_below="@+id/top_space"
+        android:layout_width="300dp"
+        android:layout_height="300dp"
+        android:background="@drawable/logo"
+        android:layout_centerHorizontal="true"/>
+
+    <TextView
+        android:id="@+id/logo_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textColor="@color/dark_gray"
+        android:gravity="center"
+        android:fontFamily="casual"
+        android:textSize="64sp"
+        android:text="Road Mission"
+        android:layout_below="@id/logo_button"/>
+
+    <ImageView
+        android:id="@+id/menu_button"
+        android:layout_width="700dp"
+        android:layout_height="700dp"
+        android:background="@drawable/untitled"
+        android:layout_below="@id/logo_text"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:contentDescription="Buttons_Image" />
+
+    <Button
+        android:id="@+id/x_button"
+        android:layout_width="300dp"
+        android:layout_height="315dp"
+        android:layout_below="@id/logo_text"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="85dp"
+        android:background="@color/transparent" />
+
+    <Button
+        android:id="@+id/y_button"
+        android:layout_width="300dp"
+        android:layout_height="315dp"
+        android:layout_below="@id/logo_text"
+        android:layout_marginStart="240dp"
+        android:layout_marginTop="415dp"
+        android:background="@color/transparent" />
+
+    <Button
+        android:id="@+id/z_button"
+        android:layout_width="300dp"
+        android:layout_height="315dp"
+        android:layout_below="@id/logo_text"
+        android:layout_marginStart="600dp"
+        android:layout_marginTop="250dp"
+        android:background="@color/transparent" />
+
+</RelativeLayout>
