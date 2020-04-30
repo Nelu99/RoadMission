@@ -11,7 +11,7 @@
         <item name="colorPrimary">@android:color/transparent</item>
         <item name="colorControlActivated">@color/green</item>
         <item name="windowActionBarOverlay">true</item>
-        <itexm name="windowActionBar">false</itexm>
+        <item name="windowActionBar">false</item>
         <item name="windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
     </style>
