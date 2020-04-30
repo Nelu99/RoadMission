@@ -12,9 +12,13 @@ import com.google.android.material.tabs.TabLayout
 
 class MainActivity : AppCompatActivity() {
 
-    private lateinit var leftFragment : Fragment
-    private lateinit var middleFragment : Fragment
-    private lateinit var rightFragment : Fragment
+    companion object {
+        lateinit var tts: TextToSpeechRM
+    }
+
+    private lateinit var leftFragment: Fragment
+    private lateinit var middleFragment: Fragment
+    private lateinit var rightFragment: Fragment
     private lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
 
@@ -23,6 +27,7 @@ class MainActivity : AppCompatActivity() {
         setTheme()
         setContentView(R.layout.activity_main)
         startFragment()
+        tts = TextToSpeechRM(applicationContext)
     }
 
     private fun setTheme() {
