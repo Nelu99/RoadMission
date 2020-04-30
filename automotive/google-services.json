@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "430795145200",
+    "firebase_url": "https://roadmission-81fd2.firebaseio.com",
+    "project_id": "roadmission-81fd2",
+    "storage_bucket": "roadmission-81fd2.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:430795145200:android:df74da73fdf86e8b2ba735",
+        "android_client_info": {
+          "package_name": "com.example.roadmission"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "430795145200-2l5dp65ea51g0ab27063275lof0bnbbf.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAgwKoOuB2n-YC_v4iubWRmZWlV1fQuq8c"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "430795145200-2l5dp65ea51g0ab27063275lof0bnbbf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,73 @@
+1<?xml version="1.0" encoding="utf-8"?>
+2<manifest xmlns:android="http://schemas.android.com/apk/res/android"
+3    package="com.example.roadmission"
+4    android:versionCode="1"
+5    android:versionName="1.0" >
+6
+7    <uses-sdk
+8        android:minSdkVersion="28"
+8-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml
+9        android:targetSdkVersion="29" />
+9-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml
+10
+11    <application
+11-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:5:5-19:19
+12        android:allowBackup="true"
+12-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:6:9-35
+13        android:appComponentFactory="androidx.core.app.CoreComponentFactory"
+13-->[androidx.core:core:1.0.2] C:\Users\Pufu\.gradle\caches\transforms-2\files-2.1\aaca0b4c7bc5e3b44b7d05468fa4cf78\core-1.0.2\AndroidManifest.xml:22:18-86
+14        android:debuggable="true"
+15        android:extractNativeLibs="false"
+16        android:icon="@mipmap/ic_launcher"
+16-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:7:9-43
+17        android:label="@string/app_name"
+17-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:8:9-41
+18        android:roundIcon="@mipmap/ic_launcher_round"
+18-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:9:9-54
+19        android:supportsRtl="true"
+19-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:10:9-35
+20        android:testOnly="true"
+21        android:theme="@style/AppTheme" >
+21-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:11:9-40
+22        <activity android:name="com.example.roadmission.MainActivity" >
+22-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:12:9-18:20
+22-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:12:19-47
+23            <intent-filter>
+23-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:13:13-17:29
+24                <action android:name="android.intent.action.MAIN" />
+24-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:14:17-69
+24-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:14:25-66
+25
+26                <category android:name="android.intent.category.LAUNCHER" />
+26-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:16:17-77
+26-->C:\Users\Pufu\AndroidStudioProjects\RoadMission\mobile\src\main\AndroidManifest.xml:16:27-74
+27            </intent-filter>
+28        </activity>
+29
+30        <meta-data
+30-->[:shared] C:\Users\Pufu\AndroidStudioProjects\RoadMission\shared\build\intermediates\library_manifest\debug\AndroidManifest.xml:12:9-14:59
+31            android:name="com.google.android.gms.car.application"
+31-->[:shared] C:\Users\Pufu\AndroidStudioProjects\RoadMission\shared\build\intermediates\library_manifest\debug\AndroidManifest.xml:13:13-66
+32            android:resource="@xml/automotive_app_desc" />
+32-->[:shared] C:\Users\Pufu\AndroidStudioProjects\RoadMission\shared\build\intermediates\library_manifest\debug\AndroidManifest.xml:14:13-56
+33        <!--
+34         Main music service, provides media browsing and media playback services to
+35         consumers through MediaBrowserService and MediaSession. Consumers connect to it through
+36         MediaBrowser (for browsing) and MediaController (for playback control)
+37        -->
+38        <service
+38-->[:shared] C:\Users\Pufu\AndroidStudioProjects\RoadMission\shared\build\intermediates\library_manifest\debug\AndroidManifest.xml:21:9-27:19
+39            android:name="com.example.roadmission.shared.MyMusicService"
+39-->[:shared] C:\Users\Pufu\AndroidStudioProjects\RoadMission\shared\build\intermediates\library_manifest\debug\AndroidManifest.xml:22:13-73
+40            android:exported="true" >
+40-->[:shared] C:\Users\Pufu\AndroidStudioProjects\RoadMission\shared\build\intermediates\library_manifest\debug\AndroidManifest.xml:23:13-36
+41            <intent-filter>
+41-->[:shared] C:\Users\Pufu\AndroidStudioProjects\RoadMission\shared\build\intermediates\library_manifest\debug\AndroidManifest.xml:24:13-26:29
+42                <action android:name="android.media.browse.MediaBrowserService" />
+42-->[:shared] C:\Users\Pufu\AndroidStudioProjects\RoadMission\shared\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:17-83
+42-->[:shared] C:\Users\Pufu\AndroidStudioProjects\RoadMission\shared\build\intermediates\library_manifest\debug\AndroidManifest.xml:25:25-80
+43            </intent-filter>
+44        </service>
+45    </application>
+46
+47</manifest>
