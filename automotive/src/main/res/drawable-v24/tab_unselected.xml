@@ -5,9 +5,9 @@
         <shape
             android:shape="ring"
             android:useLevel="false"
-            android:thickness="10dp"
+            android:thickness="7.5dp"
             android:innerRadius="0dp">
-            <solid android:color="@color/gray"/>
+            <solid android:color="?attr/tabDot"/>
         </shape>
     </item>
 

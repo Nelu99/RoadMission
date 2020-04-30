@@ -1,15 +1,14 @@
 package com.example.roadmission
 
-import android.content.Intent
+import android.content.Context
 import android.os.Bundle
-import android.view.View
 import androidx.appcompat.app.AppCompatActivity
-import androidx.appcompat.widget.Toolbar
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -21,27 +20,36 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme()
         setContentView(R.layout.activity_main)
-        setupToolbar()
         startFragment()
     }
 
-    fun setupToolbar() {
-        val mToolbar = findViewById<View>(R.id.toolbar_main) as Toolbar
-        setSupportActionBar(mToolbar)
-        supportActionBar!!.setDisplayShowTitleEnabled(false)
+    private fun setTheme() {
+        val sharedPrefs = getPreferences(Context.MODE_PRIVATE)
+        val lightModePref = sharedPrefs.getBoolean("enable_light_mode", false)
+        if(lightModePref) {
+            setTheme(R.style.CustomThemeLight)
+        }
+        else {
+            setTheme(R.style.CustomThemeDark)
+        }
     }
 
-    fun startFragment() {
+    private fun startFragment() {
         val pagerAdapter = PagerAdapter(supportFragmentManager)
-        viewPager = findViewById(R.id.view_pager)
         tabLayout = findViewById(R.id.tab_layout_main)
+        viewPager = findViewById(R.id.view_pager)
         leftFragment = LeftFragment()
         middleFragment = MiddleFragment()
         rightFragment = RightFragment()
         tabLayout.setupWithViewPager(viewPager)
         viewPager.adapter = pagerAdapter
-        viewPager.currentItem = 1
+        if(intent.getBooleanExtra("CHANGED_THEME", false)) {
+            viewPager.currentItem = 0
+        }
+        else
+            viewPager.currentItem = 1
     }
 
     inner class PagerAdapter(fm: FragmentManager) :

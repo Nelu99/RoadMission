@@ -1,13 +1,26 @@
 <resources>
 
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <item name="android:textColorPrimary">@color/white</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+    <attr name="tabDot" format="reference"/>
+
+    <style name="CustomThemeLight" parent="Theme.AppCompat.NoActionBar">
+        <item name="tabDot">@color/gray</item>
+        <item name="android:windowBackground">@color/silver</item>
+        <item name="android:textColor">@color/gray</item>
+        <item name="colorPrimaryDark">@color/silver</item>
+        <item name="android:fontFamily">@font/news_cycle</item>
         <item name="colorPrimary">@android:color/transparent</item>
+        <item name="colorControlActivated">@color/green</item>
         <item name="windowActionBarOverlay">true</item>
-        <item name="windowActionBar">false</item>
+        <itexm name="windowActionBar">false</itexm>
         <item name="windowNoTitle">true</item>
         <item name="android:windowAnimationStyle">@style/CustomActivityAnimation</item>
+    </style>
+
+    <style name="CustomThemeDark" parent="CustomThemeLight">
+        <item name="tabDot">@color/silver</item>
+        <item name="android:windowBackground">@color/gray</item>
+        <item name="android:textColor">@color/silver</item>
+        <item name="colorPrimaryDark">@color/gray</item>
     </style>
 
     <style name="CustomActivityAnimation" parent="@android:style/Animation.Activity">

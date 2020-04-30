@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="utf-8"?>
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".LeftFragment">
+
+    <PreferenceCategory
+        android:key="visual"
+        android:title="Visual"
+        android:layout="@layout/preference_category_layout">
+
+        <SwitchPreferenceCompat
+            android:layout="@layout/preference_layout"
+            android:defaultValue="false"
+            android:key="enable_light_mode"
+            android:title="Enable light mode"
+            android:summary="Better visual performance, not recommended for long use"/>
+
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:key="about"
+        android:title="About"
+        android:layout="@layout/preference_category_layout">
+
+        <Preference
+            android:layout="@layout/preference_layout"
+            android:key="version"
+            android:title="Build version"
+            android:summary="1.0.001"/>
+
+    </PreferenceCategory>
+
+</PreferenceScreen>

@@ -5,66 +5,75 @@
     android:layout_height="match_parent"
     tools:context=".MiddleFragment">
 
-    <Space
-        android:layout_width="match_parent"
-        android:layout_alignParentTop="true"
-        android:id="@+id/top_space"
-        android:layout_height="?attr/actionBarSize"/>
+    <LinearLayout
+        android:id="@+id/logo_layout"
+        android:layout_width="200dp"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="50dp">
 
-    <ImageButton
-        android:id="@+id/logo_button"
-        android:layout_below="@+id/top_space"
-        android:layout_width="300dp"
-        android:layout_height="300dp"
-        android:background="@drawable/logo"
-        android:layout_centerHorizontal="true"/>
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="200dp"
+            android:layout_height="200dp"
+            android:background="@drawable/logo"/>
 
-    <TextView
-        android:id="@+id/logo_text"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textColor="@color/dark_gray"
-        android:gravity="center"
-        android:fontFamily="casual"
-        android:textSize="64sp"
-        android:text="Road Mission"
-        android:layout_below="@id/logo_button"/>
+        <TextView
+            android:id="@+id/logo_text"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="32sp"
+            android:layout_gravity="center"
+            android:text="Road Mission"/>
 
-    <ImageView
-        android:id="@+id/menu_button"
-        android:layout_width="700dp"
-        android:layout_height="700dp"
-        android:background="@drawable/untitled"
-        android:layout_below="@id/logo_text"
+    </LinearLayout>
+
+    <Button
+        android:id="@+id/menu_button_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="25dp"
+        android:layout_toEndOf="@id/logo_layout"
+        android:background="@drawable/button"
+        android:text="Button_Middle"
+        android:textSize="32sp" />
+
+    <Button
+        android:layout_marginStart="100dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:id="@+id/menu_button_top"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_toEndOf="@id/logo_layout"
+        android:layout_alignParentEnd="true"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="?attr/actionBarSize"
-        android:contentDescription="Buttons_Image" />
+        android:layout_above="@id/menu_button_middle"
+        android:textSize="32sp"
+        android:text="Button_Top"/>
 
     <Button
-        android:id="@+id/x_button"
-        android:layout_width="300dp"
-        android:layout_height="315dp"
-        android:layout_below="@id/logo_text"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="85dp"
-        android:background="@color/transparent" />
-
-    <Button
-        android:id="@+id/y_button"
-        android:layout_width="300dp"
-        android:layout_height="315dp"
-        android:layout_below="@id/logo_text"
-        android:layout_marginStart="240dp"
-        android:layout_marginTop="415dp"
-        android:background="@color/transparent" />
-
-    <Button
-        android:id="@+id/z_button"
-        android:layout_width="300dp"
-        android:layout_height="315dp"
-        android:layout_below="@id/logo_text"
-        android:layout_marginStart="600dp"
-        android:layout_marginTop="250dp"
-        android:background="@color/transparent" />
+        android:layout_marginEnd="100dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginBottom="25dp"
+        android:id="@+id/menu_button_bottom"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:background="@drawable/button"
+        android:layout_toEndOf="@id/logo_layout"
+        android:layout_alignParentEnd="true"
+        android:layout_centerHorizontal="true"
+        android:layout_below="@id/menu_button_middle"
+        android:textSize="32sp"
+        android:text="Button_Bottom"/>
 
 </RelativeLayout>
