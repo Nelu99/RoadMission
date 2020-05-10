@@ -29,13 +29,13 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,GoogleApi
     private var distance:Double = 0.0
 
     init {
-        android.os.Handler().postDelayed(Runnable {updateStop()}, 60000) //1minute - 60.000
+        android.os.Handler().postDelayed(Runnable {updateStop()}, 100) //1minute - 60.000
     }
 
     private fun updateStop(){
         RightFragment.chronometer.start()
         minutesStopped += 1
-        android.os.Handler().postDelayed(Runnable {updateStop()}, 60000) //1minute
+        android.os.Handler().postDelayed(Runnable {updateStop()}, 100) //1minute
     }
 
     override fun onBind(intent: Intent?): IBinder? {

@@ -9,14 +9,12 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.IBinder
-import android.widget.Chronometer
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
@@ -48,18 +46,30 @@ class MainActivity : AppCompatActivity() {
         startFragment()
         tts = TextToSpeechRM(applicationContext)
         checkPermissions()
+        initDatabase()
         startLocationService()
-        missionsDatabase.createMissions()
     }
 
-
+    private fun initDatabase(){
+        val sharedPrefs = getSharedPreferences("com.example.roadmission", Context.MODE_PRIVATE);
+        val databaseFirstSetup = sharedPrefs.getBoolean("database_first_setup", true)
+        if(databaseFirstSetup) {
+            missionsDatabase.createMissions()
+            if (sharedPrefs != null) {
+                with (sharedPrefs.edit()) {
+                    putBoolean("database_first_setup", false)
+                    apply()
+                }
+            }
+        }
+    }
 
     private fun bindService(){
         if(status == true)
         {
             return
         }
-        var i = Intent(applicationContext, LocationService::class.java)
+        val i = Intent(applicationContext, LocationService::class.java)
         bindService(i,sc, Context.BIND_AUTO_CREATE)
         status = true
     }
@@ -87,7 +97,7 @@ class MainActivity : AppCompatActivity() {
                 status = false
             }
             override fun onServiceConnected(componentName: ComponentName, iBinder: IBinder) {
-                var binder = iBinder as LocationService.LocalBinder
+                val binder = iBinder as LocationService.LocalBinder
                 myService = binder.getService()
                 status = true
             }
@@ -129,7 +139,6 @@ class MainActivity : AppCompatActivity() {
 
         }
         return
-
     }
 
     private fun checkGPS(){
