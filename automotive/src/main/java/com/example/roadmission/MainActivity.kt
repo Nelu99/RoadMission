@@ -38,6 +38,7 @@ class MainActivity : AppCompatActivity() {
     private lateinit var sc: ServiceConnection
 
     private var status: Boolean = false
+    private var missionsDatabase:MissionsDatabase = MissionsDatabase(this)
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -48,6 +49,7 @@ class MainActivity : AppCompatActivity() {
         tts = TextToSpeechRM(applicationContext)
         checkPermissions()
         startLocationService()
+        missionsDatabase.createMissions()
     }
 
 
