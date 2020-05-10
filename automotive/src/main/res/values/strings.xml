@@ -1,4 +1,12 @@
 <resources>
     <string name="app_name">Road Mission</string>
 
+    <string-array name="passengers">
+        <item
+            background="@android:color/transparent"
+            >Just me</item>
+        <item>1</item>
+        <item>2+</item>
+    </string-array>
+
 </resources>

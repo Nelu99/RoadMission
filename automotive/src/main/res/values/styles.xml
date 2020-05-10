@@ -3,6 +3,10 @@
     <attr name="tabDot" format="reference"/>
 
     <style name="CustomThemeLight" parent="Theme.AppCompat.NoActionBar">
+        <item name="dialogTheme">@style/AlertDialogTheme</item>
+        <item name="alertDialogTheme">@style/AlertDialogTheme</item>
+        <item name="alertDialogStyle">@style/AlertDialogStyle</item>
+        <item name="dialogPreferenceStyle">@style/AlertDialogStyle</item>
         <item name="tabDot">@color/gray</item>
         <item name="android:windowBackground">@color/silver</item>
         <item name="android:textColor">@color/gray</item>
@@ -28,6 +32,20 @@
         <item name="android:activityOpenExitAnimation">@anim/push_up_in</item>
         <item name="android:activityCloseEnterAnimation">@anim/push_down_in</item>
         <item name="android:activityCloseExitAnimation">@anim/push_up_out</item>
+    </style>
+
+    <style name="AlertDialogTheme" parent="Theme.AppCompat.Dialog.Alert">
+        <item name="android:fontFamily">@font/news_cycle</item>
+        <item name="android:textSize">32sp</item>
+        <item name="colorAccent">@color/green</item>
+        <item name="android:textColor">@color/silver</item>
+    </style>
+
+    <style name="AlertDialogStyle" parent="AlertDialog.AppCompat">
+        <item name="android:fontFamily">@font/news_cycle</item>
+        <item name="android:textSize">32sp</item>
+        <item name="colorAccent">@color/green</item>
+        <item name="android:textColor">@color/silver</item>
     </style>
 
 </resources>
