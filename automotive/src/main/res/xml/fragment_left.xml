@@ -20,6 +20,22 @@
     </PreferenceCategory>
 
     <PreferenceCategory
+        android:key="preferences"
+        android:title="Preferences"
+        android:layout="@layout/preference_category_layout">
+
+
+        <ListPreference
+            android:layout="@layout/preference_layout"
+            android:defaultValue="0"
+            android:entries="@array/passengers"
+            android:entryValues="@array/passengers"
+            android:key="passengers"
+            android:title="Number of passengers"
+            android:summary="%s"/>
+    </PreferenceCategory>
+
+    <PreferenceCategory
         android:key="about"
         android:title="About"
         android:layout="@layout/preference_category_layout">

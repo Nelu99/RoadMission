@@ -16,6 +16,7 @@ import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
+import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
@@ -144,7 +145,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun setTheme() {
-        val sharedPrefs = getPreferences(Context.MODE_PRIVATE)
+        val sharedPrefs = getSharedPreferences("com.example.roadmission", Context.MODE_PRIVATE);
         val lightModePref = sharedPrefs.getBoolean("enable_light_mode", false)
         if(lightModePref) {
             setTheme(R.style.CustomThemeLight)
