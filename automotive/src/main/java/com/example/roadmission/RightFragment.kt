@@ -1,11 +1,11 @@
 package com.example.roadmission
 
 import android.os.Bundle
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Chronometer
+import androidx.fragment.app.Fragment
 
 class RightFragment : Fragment() {
 
@@ -19,12 +19,20 @@ class RightFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         mView = inflater.inflate(R.layout.fragment_right, container, false)
-        startChronometer()
+        startChronometer(savedInstanceState)
         return mView
     }
-    private fun startChronometer()
+    private fun startChronometer(savedInstanceState: Bundle?)
     {
-        chronometer = mView.findViewById<Chronometer>(R.id.chronometer)
-        chronometer.start()
+        chronometer = mView.findViewById(R.id.chronometer)
+        if (savedInstanceState != null) {
+            chronometer.setBase(savedInstanceState.getLong("time"));
+        }
+        chronometer.start();
+    }
+
+    override fun onSaveInstanceState(outState: Bundle) {
+        outState.putLong("time", chronometer.base)
+        super.onSaveInstanceState(outState)
     }
 }
