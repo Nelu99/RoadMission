@@ -20,12 +20,11 @@ import androidx.preference.PreferenceManager
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
 
-
-
 class MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var tts: TextToSpeechRM
+        lateinit var myService:LocationService
     }
 
     private lateinit var leftFragment: Fragment
@@ -34,12 +33,11 @@ class MainActivity : AppCompatActivity() {
     private lateinit var viewPager: ViewPager
     private lateinit var tabLayout: TabLayout
     private lateinit var locationManager: LocationManager
-    private lateinit var myService:LocationService
     private lateinit var sc: ServiceConnection
+    private lateinit var weather:Weather
 
     private var status: Boolean = false
     private var missionsDatabase:MissionsDatabase = MissionsDatabase(this)
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -49,10 +47,16 @@ class MainActivity : AppCompatActivity() {
         tts = TextToSpeechRM(applicationContext)
         checkPermissions()
         startLocationService()
-        missionsDatabase.createMissions()
+        //missionsDatabase.createMissions()
+        WeatherExecute()
     }
 
-
+    fun WeatherExecute()
+    {
+        weather = Weather()
+        android.os.Handler().postDelayed(Runnable {weather.execute()}, 5000) //5 seconds for MyService to initialize
+        android.os.Handler().postDelayed(Runnable {WeatherExecute()}, 360000) //1hour
+    }
 
     private fun bindService(){
         if(status == true)
@@ -78,7 +82,6 @@ class MainActivity : AppCompatActivity() {
         }
         unbindService(sc)
         status = false
-
     }
 
     private fun startLocationService(){
@@ -129,7 +132,6 @@ class MainActivity : AppCompatActivity() {
 
         }
         return
-
     }
 
     private fun checkGPS(){
@@ -190,11 +192,11 @@ class MainActivity : AppCompatActivity() {
                 else -> middleFragment
             }
         }
-
         override fun getCount(): Int {
             return fragmentNames.size
         }
     }
+
 
 
 
