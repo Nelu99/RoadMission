@@ -4,7 +4,7 @@ import android.content.Context
 import android.database.sqlite.SQLiteDatabase
 import android.database.sqlite.SQLiteOpenHelper
 
-class MissionsDatabase(context: Context) : SQLiteOpenHelper(context,DATABASE_NAME, null, DATABASE_VERSION) {
+class MissionsDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NAME, null, DATABASE_VERSION) {
     companion object {
         private var DATABASE_VERSION: Int = 1
         private var DATABASE_NAME: String = "Missions_Database"
@@ -24,14 +24,13 @@ class MissionsDatabase(context: Context) : SQLiteOpenHelper(context,DATABASE_NAM
         private var DELETE_TABLE_3: String = "DROP TABLE IF EXISTS " + TABLE_3
     }
 
-
     fun createMissions(){
-        val Mission1_T1 = "1Do the flop for 1"
-        val Mission1_T2 = "1Do the double flop for 2"
-        val Mission1_T3 = "1Do the triple flop for 3"
-        createMission(TABLE_1,Mission1_T1)
-        createMission(TABLE_2,Mission1_T2)
-        createMission(TABLE_3,Mission1_T3)
+        val mission1_T1 = "1Do the flop for 1"
+        val mission1_T2 = "1Do the double flop for 2"
+        val mission1_T3 = "1Do the triple flop for 3"
+        createMission(TABLE_1,mission1_T1)
+        createMission(TABLE_2,mission1_T2)
+        createMission(TABLE_3,mission1_T3)
     }
 
     override fun onCreate(db: SQLiteDatabase?) {
