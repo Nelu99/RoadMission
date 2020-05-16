@@ -110,4 +110,12 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,GoogleApi
         LocationServices.FusedLocationApi.removeLocationUpdates(mGoogleApiClient, this)
     }
 
+    fun getLatitude():String {
+        return currentLocation.latitude.toString()
+    }
+
+    fun getLongitude():String{
+        return currentLocation.longitude.toString()
+    }
+
 }
