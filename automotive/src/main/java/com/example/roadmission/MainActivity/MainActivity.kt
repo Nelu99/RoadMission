@@ -194,7 +194,6 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun aboutDialog(view: View) {
-        exitProcess(0)
     }
 
     inner class PagerAdapter(fm: FragmentManager) :
