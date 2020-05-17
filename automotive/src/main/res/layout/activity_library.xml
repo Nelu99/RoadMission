@@ -1,0 +1,113 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true"
+    android:clickable="true"
+    android:focusable="true">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/toolbar_library">
+
+        <ImageButton
+            android:layout_width="75dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:onClick="backButton"
+            android:layout_height="match_parent"
+            android:background="@drawable/logo_back"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/text_library"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:textSize="36sp"
+        android:layout_gravity="center"
+        android:text="Library"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/text_library"
+        android:layout_toStartOf="@id/logo_layout"
+        android:layout_alignParentStart="true"
+        android:layout_marginLeft="100dp"
+        android:layout_marginRight="100dp">
+
+        <Button
+            android:id="@+id/library_button_today"
+            android:layout_above="@id/library_button_all_completed"
+            android:layout_centerHorizontal="true"
+            android:layout_width="400dp"
+            android:layout_marginTop="50dp"
+            android:layout_height="75dp"
+            android:background="@drawable/button_full"
+            android:textSize="32sp"
+            android:text="Today's Missions"/>
+
+        <Button
+            android:id="@+id/library_button_all_completed"
+            android:layout_marginTop="50dp"
+            android:layout_centerVertical="true"
+            android:layout_centerHorizontal="true"
+            android:layout_width="400dp"
+            android:layout_height="75dp"
+            android:background="@drawable/button_full"
+            android:textSize="32sp"
+            android:text="Achievements"/>
+
+        <Button
+            android:layout_below="@id/library_button_all_completed"
+            android:id="@+id/library_button_all"
+            android:layout_marginTop="50dp"
+            android:layout_centerHorizontal="true"
+            android:layout_width="400dp"
+            android:layout_height="75dp"
+            android:background="@drawable/button_full"
+            android:textSize="32sp"
+            android:text="All missions"/>
+
+    </RelativeLayout>
+
+    <LinearLayout
+        android:id="@+id/logo_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_centerVertical="true"
+        android:layout_alignParentEnd="true"
+        android:layout_marginEnd="150dp">
+
+        <ImageView
+            android:id="@+id/logo"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+            android:layout_gravity="center"
+            android:layout_marginBottom="5dp"
+            android:background="@drawable/user_logo"/>
+
+        <EditText
+            android:id="@+id/user_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:textSize="36sp"
+            android:textColor="?attr/tabDot"
+            android:background="@null"
+            android:textAlignment="center"
+            android:singleLine="true"
+            android:maxLength="20"
+            android:inputType="textFilter"
+            android:hint="Your Name" />
+
+    </LinearLayout>
+
+</RelativeLayout>

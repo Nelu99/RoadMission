@@ -2,6 +2,7 @@ package com.example.roadmission
 
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
+import android.content.Context
 import android.os.Bundle
 import android.view.View
 import android.view.ViewGroup
@@ -24,9 +25,21 @@ class MissionsActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        setTheme()
         setContentView(R.layout.activity_missions)
         startFragments()
         setupToolbar()
+    }
+
+    private fun setTheme() {
+        val sharedPrefs = getSharedPreferences("com.example.roadmission", Context.MODE_PRIVATE);
+        val lightModePref = sharedPrefs.getBoolean("enable_light_mode", false)
+        if(lightModePref) {
+            setTheme(R.style.CustomThemeLight)
+        }
+        else {
+            setTheme(R.style.CustomThemeDark)
+        }
     }
 
     fun generateMission(view: View) {

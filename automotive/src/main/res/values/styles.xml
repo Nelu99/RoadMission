@@ -10,6 +10,7 @@
         <item name="dialogPreferenceStyle">@style/AlertDialogStyle</item>
         <item name="tabDot">@color/gray</item>
         <item name="panelText">@color/silver</item>
+        <item name="android:textColorHint">#959494</item>
         <item name="android:textColorSecondary">@color/green</item>
         <item name="android:windowBackground">@color/silver</item>
         <item name="android:textColor">@color/gray</item>
@@ -25,6 +26,7 @@
 
     <style name="CustomThemeDark" parent="CustomThemeLight">
         <item name="tabDot">@color/silver</item>
+        <item name="android:textColorHint">#A59B9B</item>
         <item name="panelText">@color/gray</item>
         <item name="android:windowBackground">@color/gray</item>
         <item name="android:textColor">@color/silver</item>

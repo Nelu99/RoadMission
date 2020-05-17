@@ -16,6 +16,7 @@
 
         <ImageView
             android:id="@+id/logo"
+            android:scaleX="-1"
             android:layout_width="200dp"
             android:layout_height="200dp"
             android:background="@drawable/logo"/>
@@ -59,6 +60,7 @@
         android:layout_marginBottom="25dp"
         android:layout_toEndOf="@id/logo_layout"
         android:background="@drawable/button"
+        android:onClick="libraryButton"
         android:text="Library"
         android:textSize="32sp" />
 
