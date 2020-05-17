@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ButtonFragment">
+
+    <Button
+        android:id="@+id/fragment_button"
+        android:layout_gravity="center"
+        android:layout_width="400dp"
+        android:layout_height="150dp"
+        android:background="@drawable/button_full"
+        android:textSize="42sp"
+        android:onClick="generateMission"
+        android:text="Generate Mission"/>
+
+</FrameLayout>

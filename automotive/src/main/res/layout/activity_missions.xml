@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <androidx.appcompat.widget.Toolbar
+        android:layout_width="match_parent"
+        android:layout_height="95dp"
+        android:layout_alignParentTop="true"
+        android:id="@+id/toolbar_missions">
+
+        <ImageButton
+            android:layout_width="75dp"
+            android:layout_marginStart="30dp"
+            android:layout_marginTop="30dp"
+            android:onClick="backButton"
+            android:layout_height="match_parent"
+            android:background="@drawable/logo_back"/>
+
+    </androidx.appcompat.widget.Toolbar>
+
+    <TextView
+        android:id="@+id/text_missions"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="?attr/actionBarSize"
+        android:textSize="36sp"
+        android:layout_gravity="center"
+        android:text="Missions"/>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/text_missions"
+        android:layout_margin="?attr/actionBarSize">
+
+        <com.example.roadmission.DeactivatedViewPager
+            android:id="@+id/view_pager_missions"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_toStartOf="@id/frame_new_mission"
+            android:background="@drawable/rounded_stroke"/>
+
+        <FrameLayout
+            android:id="@+id/frame_new_mission"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_alignParentEnd="true"
+            android:background="@drawable/rounded_right">
+
+            <ImageButton
+                android:id="@+id/button_refresh_mission"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                android:layout_gravity="center"
+                android:background="@drawable/refresh"/>
+
+        </FrameLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

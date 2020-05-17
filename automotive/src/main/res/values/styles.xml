@@ -1,6 +1,7 @@
 <resources>
 
     <attr name="tabDot" format="reference"/>
+    <attr name="panelText" format="reference"/>
 
     <style name="CustomThemeLight" parent="Theme.AppCompat.NoActionBar">
         <item name="dialogTheme">@style/AlertDialogTheme</item>
@@ -8,6 +9,8 @@
         <item name="alertDialogStyle">@style/AlertDialogStyle</item>
         <item name="dialogPreferenceStyle">@style/AlertDialogStyle</item>
         <item name="tabDot">@color/gray</item>
+        <item name="panelText">@color/silver</item>
+        <item name="android:textColorSecondary">@color/green</item>
         <item name="android:windowBackground">@color/silver</item>
         <item name="android:textColor">@color/gray</item>
         <item name="colorPrimaryDark">@color/silver</item>
@@ -22,6 +25,7 @@
 
     <style name="CustomThemeDark" parent="CustomThemeLight">
         <item name="tabDot">@color/silver</item>
+        <item name="panelText">@color/gray</item>
         <item name="android:windowBackground">@color/gray</item>
         <item name="android:textColor">@color/silver</item>
         <item name="colorPrimaryDark">@color/gray</item>

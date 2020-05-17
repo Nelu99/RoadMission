@@ -9,6 +9,7 @@ import android.content.pm.PackageManager
 import android.location.LocationManager
 import android.os.Bundle
 import android.os.IBinder
+import android.view.View
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
@@ -17,10 +18,10 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.google.android.material.tabs.TabLayout
+import kotlin.system.exitProcess
 
 
-
-class MainActivity : AppCompatActivity() {
+class   MainActivity : AppCompatActivity() {
 
     companion object {
         lateinit var tts: TextToSpeechRM
@@ -48,6 +49,10 @@ class MainActivity : AppCompatActivity() {
         checkPermissions()
         initDatabase()
         startLocationService()
+    }
+
+    fun missionButton(view : View) {
+        startActivity(Intent(this@MainActivity,MissionsActivity::class.java))
     }
 
     private fun initDatabase(){
@@ -180,6 +185,10 @@ class MainActivity : AppCompatActivity() {
         }
         else
             viewPager.currentItem = 1
+    }
+
+    fun aboutDialog(view: View) {
+        exitProcess(0)
     }
 
     inner class PagerAdapter(fm: FragmentManager) :

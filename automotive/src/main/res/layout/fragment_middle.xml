@@ -24,26 +24,11 @@
             android:id="@+id/logo_text"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:textSize="32sp"
+            android:textSize="36sp"
             android:layout_gravity="center"
             android:text="Road Mission"/>
 
     </LinearLayout>
-
-    <Button
-        android:id="@+id/menu_button_middle"
-        android:layout_width="wrap_content"
-        android:layout_height="75dp"
-        android:layout_alignParentEnd="true"
-        android:layout_centerInParent="true"
-        android:layout_marginStart="50dp"
-        android:layout_marginTop="25dp"
-        android:layout_marginEnd="100dp"
-        android:layout_marginBottom="25dp"
-        android:layout_toEndOf="@id/logo_layout"
-        android:background="@drawable/button"
-        android:text="Button_Middle"
-        android:textSize="32sp" />
 
     <Button
         android:layout_marginStart="100dp"
@@ -59,7 +44,23 @@
         android:layout_centerHorizontal="true"
         android:layout_above="@id/menu_button_middle"
         android:textSize="32sp"
-        android:text="Button_Top"/>
+        android:onClick="missionButton"
+        android:text="Missions"/>
+
+    <Button
+        android:id="@+id/menu_button_middle"
+        android:layout_width="wrap_content"
+        android:layout_height="75dp"
+        android:layout_alignParentEnd="true"
+        android:layout_centerInParent="true"
+        android:layout_marginStart="50dp"
+        android:layout_marginTop="25dp"
+        android:layout_marginEnd="100dp"
+        android:layout_marginBottom="25dp"
+        android:layout_toEndOf="@id/logo_layout"
+        android:background="@drawable/button"
+        android:text="Library"
+        android:textSize="32sp" />
 
     <Button
         android:layout_marginEnd="100dp"
@@ -74,6 +75,7 @@
         android:layout_centerHorizontal="true"
         android:layout_below="@id/menu_button_middle"
         android:textSize="32sp"
-        android:text="Button_Bottom"/>
+        android:onClick="aboutDialog"
+        android:text="About"/>
 
 </RelativeLayout>
