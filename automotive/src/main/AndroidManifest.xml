@@ -20,7 +20,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/CustomThemeDark">
-        <activity android:name=".MissionsActivity"></activity>
+        <activity android:name=".LibraryActivity.LibraryActivity"></activity>
+        <activity android:name=".MissionsActivity" />
         <activity android:name=".PopupActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

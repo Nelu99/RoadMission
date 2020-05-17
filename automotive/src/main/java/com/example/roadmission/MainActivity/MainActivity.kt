@@ -17,8 +17,8 @@ import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
+import com.example.roadmission.LibraryActivity.LibraryActivity
 import com.google.android.material.tabs.TabLayout
-import kotlin.system.exitProcess
 
 class MainActivity : AppCompatActivity() {
 
@@ -60,6 +60,10 @@ class MainActivity : AppCompatActivity() {
 
     fun missionButton(view : View) {
         startActivity(Intent(this@MainActivity,MissionsActivity::class.java))
+    }
+
+    fun libraryButton(view : View) {
+        startActivity(Intent(this@MainActivity, LibraryActivity::class.java))
     }
 
     private fun initDatabase(){
