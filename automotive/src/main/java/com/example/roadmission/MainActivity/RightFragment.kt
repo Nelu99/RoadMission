@@ -32,6 +32,9 @@ class RightFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        item1 = requireView().findViewById(R.id.item_1)
+        item2 = requireView().findViewById(R.id.item_2)
+        item3 = requireView().findViewById(R.id.item_3)
         nearbyPlaces()
     }
     private fun startChronometer(savedInstanceState: Bundle?)
@@ -48,10 +51,7 @@ class RightFragment : Fragment() {
         super.onSaveInstanceState(outState)
     }
 
-    fun nearbyPlaces() {
-        item1 = requireView().findViewById(R.id.item_1)
-        item2 = requireView().findViewById(R.id.item_2)
-        item3 = requireView().findViewById(R.id.item_3)
+    private fun nearbyPlaces() {
 
         val nearbyPlaces = NearbyPlaces(requireContext(), item1, item2, item3)
 
