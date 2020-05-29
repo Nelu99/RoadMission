@@ -7,16 +7,21 @@ import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.CheckBox
 import android.widget.Spinner
-import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import androidx.preference.PreferenceManager
+import java.io.FileOutputStream
+import java.io.IOException
+import java.io.InputStream
+import java.io.OutputStream
 
 class PopupActivity : AppCompatActivity() {
 
     private lateinit var checkBox: CheckBox
+    private val DB_NAME = "copiedDB.db"
+    private val DB_PATH: String by lazy { this.applicationInfo.dataDir + "/databases/" }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        copyDataBase()
         checkDontAskAgain()
         setContentView(R.layout.activity_popup)
         checkBox = findViewById(R.id.popup_checkbox)
@@ -67,4 +72,27 @@ class PopupActivity : AppCompatActivity() {
             spinner.adapter = adapter
         }
     }
+
+    @Throws(IOException::class)
+    private fun copyDataBase() {
+        val sharedPrefs = getSharedPreferences("com.example.roadmission", Context.MODE_PRIVATE);
+        if(sharedPrefs.getBoolean("database_copied",false))
+            return
+        val myInput: InputStream = assets.open(DB_NAME)
+        val outFileName: String = DB_PATH + DB_NAME
+        val myOutput: OutputStream = FileOutputStream(outFileName)
+        val buffer = ByteArray(1024)
+        var length: Int
+        while (myInput.read(buffer).also { length = it } > 0) {
+            myOutput.write(buffer, 0, length)
+        }
+        with (sharedPrefs.edit()) {
+            putBoolean("database_copied", true)
+            apply()
+        }
+        myOutput.flush()
+        myOutput.close()
+        myInput.close()
+    }
+
 }
