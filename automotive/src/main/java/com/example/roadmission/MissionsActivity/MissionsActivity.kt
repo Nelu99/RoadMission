@@ -3,16 +3,18 @@ package com.example.roadmission
 import android.animation.AnimatorSet
 import android.animation.ValueAnimator
 import android.content.Context
+import android.content.DialogInterface
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
 import android.os.Bundle
+import android.os.CountDownTimer
 import android.view.View
 import android.view.ViewGroup
-import android.view.WindowManager
 import android.view.animation.AccelerateDecelerateInterpolator
 import android.widget.Button
 import android.widget.FrameLayout
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
@@ -21,16 +23,20 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import java.lang.reflect.Field
+import java.text.SimpleDateFormat
 import java.util.*
+import java.util.concurrent.TimeUnit
 
 class MissionsActivity : AppCompatActivity() {
 
     private lateinit var buttonFragment: Fragment
     private lateinit var missionFragment: Fragment
     private lateinit var viewPager: DeactivatedViewPager
+    private lateinit var progressDB: ProgressDatabase
     private val DB_NAME = "copiedDB.db"
     private val DB_PATH: String by lazy { applicationInfo.dataDir + "/databases/" }
     private lateinit var res: Cursor
+    private var timer: CountDownTimer? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,6 +44,7 @@ class MissionsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_missions)
         startFragments()
         setupToolbar()
+        progressDB = ProgressDatabase(this)
     }
 
     private fun setTheme() {
@@ -60,33 +67,81 @@ class MissionsActivity : AppCompatActivity() {
                     "and PASSENGERS = '$passengers'", null)
         if(res.count == 0) {
             res.close()
-            showDialog("No missions found for your current configuration")
             return
         }
         val random: Int = Random().nextInt(res.count)
         for(i in 0..random)
             res.moveToNext()
-        val buffer = StringBuffer()
-        buffer.append("\n${res.getString(0)}\n\n")
-        buffer.append("${res.getString(1)}\n\n")
-        buffer.append("Weather : ${res.getString(2)}\n\n")
-        buffer.append("Passengers : ${res.getString(3)}\n\n")
-        buffer.append("Difficulty : ${res.getString(4)}\n\n")
-        res.close()
-        showDialog(buffer.toString())
+        updateMissionData()
         if(viewPager.currentItem == 0)
             changeFragment()
     }
 
-    private fun showDialog(Message: String?) {
+    private fun updateMissionData() {
+        val textTitle = findViewById<TextView>(R.id.mission_title)
+        textTitle.text = res.getString(0)
+        val textMission = findViewById<TextView>(R.id.mission_text)
+        textMission.text = res.getString(1)
+        val textDifficulty = findViewById<TextView>(R.id.mission_difficulty)
+        textDifficulty.text = "Difficulty : " + res.getString(4)
+        val countDownValue = when(res.getString(4)) {
+            "EASY" -> 9
+            "AVERAGE" -> 6
+            "HARD" -> 3
+            else -> 6
+        }
+        val textCountDown = findViewById<TextView>(R.id.count_down_text)
+        textCountDown.text = countDownValue.toString()
+        timer?.cancel()
+        timer = object : CountDownTimer((1000 * countDownValue).toLong(), 1000) {
+            override fun onTick(millisUntilFinished: Long) {
+                textCountDown.text = String.format("%d min, %d sec",
+                    TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
+                    TimeUnit.MILLISECONDS.toSeconds(millisUntilFinished) -
+                            TimeUnit.MINUTES.toSeconds(TimeUnit.MILLISECONDS.toMinutes(millisUntilFinished)))
+            }
+
+            override fun onFinish() {
+                textCountDown.text = "0 min, 0 sec"
+                showDialog()
+                cancel()
+            }
+        }.start()
+    }
+
+    private fun showDialog(){
+        lateinit var dialog:AlertDialog
         val builder = AlertDialog.Builder(this)
-        builder.setCancelable(true)
-        builder.setMessage(Message)
-        val alert = builder.create()
-        alert.show()
-        alert.window!!.attributes
-        val textViewMessage = alert.findViewById<View>(android.R.id.message) as TextView?
-        textViewMessage!!.textSize = 32f
+        builder.setTitle("Time is up!")
+        builder.setMessage("Did you complete you mission?")
+        val dialogClickListener = DialogInterface.OnClickListener{_,which ->
+            when(which){
+                DialogInterface.BUTTON_POSITIVE -> addProgressAchievement()
+                DialogInterface.BUTTON_NEGATIVE -> {
+                    Toast.makeText(this, "Mission failed", Toast.LENGTH_SHORT).show()
+                    res.close()
+                }
+            }
+        }
+        builder.setPositiveButton("YES",dialogClickListener)
+        builder.setNegativeButton("NO",dialogClickListener)
+        dialog = builder.create()
+        dialog.show()
+    }
+
+    private fun addProgressAchievement() {
+        if(progressDB.isAchievementRegistered(res.getString(0)))
+            progressDB.updateAchievement(res.getString(0), res.getString(4), 1, getDate().toString())
+        else
+            progressDB.addAchievement(res.getString(0), res.getString(4), 1, getDate().toString())
+        Toast.makeText(this, "Achievement added", Toast.LENGTH_SHORT).show()
+        res.close()
+    }
+
+    private fun getDate(): String? {
+        val pattern = "dd MMM yyyy"
+        val simpleDateFormat = SimpleDateFormat(pattern)
+        return simpleDateFormat.format(Date())
     }
 
     private fun getWeather(): String {
@@ -134,7 +189,7 @@ class MissionsActivity : AppCompatActivity() {
         val slideAnimator = ValueAnimator.ofInt(0, 300)
             .setDuration(1000)
         slideAnimator.addUpdateListener { animation ->
-            val value = animation.getAnimatedValue()
+            val value = animation.animatedValue
             view.layoutParams.width = value.toString().toInt()
             view.requestLayout()
         }
