@@ -6,8 +6,12 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Chronometer
-import android.widget.TextView
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.libraries.places.api.model.Place
+
 
 class RightFragment : Fragment() {
 
@@ -15,10 +19,9 @@ class RightFragment : Fragment() {
         lateinit var chronometer:Chronometer
     }
 
-    private lateinit var item1: TextView
-    private lateinit var item2: TextView
-    private lateinit var item3: TextView
     private lateinit var mView: View
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var nearbyPlaces: NearbyPlaces
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -31,9 +34,6 @@ class RightFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        item1 = requireView().findViewById(R.id.item_1)
-        item2 = requireView().findViewById(R.id.item_2)
-        item3 = requireView().findViewById(R.id.item_3)
         nearbyPlaces()
     }
     private fun startChronometer(savedInstanceState: Bundle?)
@@ -51,12 +51,28 @@ class RightFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putLong("time", chronometer.base)
+        nearbyPlaces.getPlaces()
+        recyclerView.adapter?.notifyDataSetChanged()
         super.onSaveInstanceState(outState)
     }
 
     private fun nearbyPlaces() {
 
-        val nearbyPlaces = NearbyPlaces(requireContext(), item1, item2, item3)
+        recyclerView = requireActivity().findViewById(R.id.places_lst);
+        val recyclerLayoutManager = LinearLayoutManager(context)
+        val data: MutableList<Place> = ArrayList()
+
+        recyclerView.layoutManager = recyclerLayoutManager
+        recyclerView.addItemDecoration(DividerItemDecoration(
+            recyclerView.context,
+            recyclerLayoutManager.orientation
+        ))
+        recyclerView.adapter = PlacesRecyclerViewAdapter(
+            data,
+            requireContext()
+        )
+
+        nearbyPlaces = NearbyPlaces(requireContext(), recyclerView, data)
 
         nearbyPlaces.getPlaces()
     }

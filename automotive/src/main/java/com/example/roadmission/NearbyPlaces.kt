@@ -1,7 +1,7 @@
 package com.example.roadmission
 
 import android.content.Context
-import android.widget.TextView
+import androidx.recyclerview.widget.RecyclerView
 import com.google.android.gms.tasks.Task
 import com.google.android.libraries.places.api.Places
 import com.google.android.libraries.places.api.model.Place
@@ -9,7 +9,7 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
 import com.google.android.libraries.places.api.net.PlacesClient
 
-class NearbyPlaces(var context: Context, var item1: TextView, var item2: TextView, var item3: TextView) {
+class NearbyPlaces(var context: Context, var recyclerView: RecyclerView, var data: MutableList<Place>) {
 
     private var placesClient: PlacesClient
 
@@ -20,8 +20,11 @@ class NearbyPlaces(var context: Context, var item1: TextView, var item2: TextVie
 
     fun getPlaces() {
         val placeFields: List<Place.Field> = listOf(
-            Place.Field.NAME
-//            Place.Field.RATING
+            Place.Field.NAME,
+            Place.Field.ADDRESS,
+            Place.Field.PHONE_NUMBER,
+            Place.Field.WEBSITE_URI,
+            Place.Field.RATING
         )
         val request = FindCurrentPlaceRequest.builder(placeFields).build()
 
@@ -29,10 +32,16 @@ class NearbyPlaces(var context: Context, var item1: TextView, var item2: TextVie
 
         placeResponse.addOnCompleteListener { task: Task<FindCurrentPlaceResponse?> ->
             if (task.isSuccessful) {
+                val placesList: MutableList<Place> = ArrayList()
                 val response = task.result
-                item1.text = response!!.placeLikelihoods[0].place.name
-                item2.text = response.placeLikelihoods[1].place.name
-                item3.text = response.placeLikelihoods[2].place.name
+
+                for (place in response!!.placeLikelihoods) {
+                    placesList.add(place.place)
+                }
+
+                data.clear()
+                data.addAll(placesList)
+                recyclerView.adapter?.notifyDataSetChanged()
             }
         }
     }
