@@ -225,7 +225,13 @@ class MissionsActivity : AppCompatActivity() {
         viewPager.currentItem = 0
     }
 
+    override fun onBackPressed() {
+        timer?.cancel()
+        moveTaskToBack(true)
+    }
+
     fun backButton(view: View) {
+        timer?.cancel()
         finish()
     }
 
