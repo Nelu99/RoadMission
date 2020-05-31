@@ -6,8 +6,11 @@ import android.content.Context
 import android.content.DialogInterface
 import android.database.Cursor
 import android.database.sqlite.SQLiteDatabase
+import android.graphics.Color
 import android.os.Bundle
 import android.os.CountDownTimer
+import android.util.TypedValue
+import android.view.Gravity
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateDecelerateInterpolator
@@ -18,6 +21,7 @@ import android.widget.Toast
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
+import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
@@ -112,7 +116,13 @@ class MissionsActivity : AppCompatActivity() {
     private fun showDialog(){
         lateinit var dialog:AlertDialog
         val builder = AlertDialog.Builder(this)
-        builder.setTitle("Time is up!")
+        val titleOfDialog = TextView(applicationContext)
+        titleOfDialog.height = 100
+        titleOfDialog.text = "Time is up!"
+        titleOfDialog.setTextSize(TypedValue.COMPLEX_UNIT_SP, 32f)
+        titleOfDialog.setTextColor(Color.WHITE)
+        titleOfDialog.gravity = Gravity.CENTER
+        builder.setCustomTitle(titleOfDialog)
         builder.setMessage("Did you complete you mission?")
         val dialogClickListener = DialogInterface.OnClickListener{_,which ->
             when(which){
@@ -127,6 +137,13 @@ class MissionsActivity : AppCompatActivity() {
         builder.setNegativeButton("NO",dialogClickListener)
         dialog = builder.create()
         dialog.show()
+        dialog.window!!.attributes
+        val textViewMessage = dialog.findViewById<View>(android.R.id.message) as TextView?
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextSize(TypedValue.COMPLEX_UNIT_SP, 32f)
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextSize(TypedValue.COMPLEX_UNIT_SP, 32f)
+        dialog.getButton(AlertDialog.BUTTON_POSITIVE).setTextColor(ContextCompat.getColor(this, R.color.white))
+        dialog.getButton(AlertDialog.BUTTON_NEGATIVE).setTextColor(ContextCompat.getColor(this, R.color.white))
+        textViewMessage!!.textSize = 32f
     }
 
     private fun addProgressAchievement() {
@@ -134,7 +151,7 @@ class MissionsActivity : AppCompatActivity() {
             progressDB.updateAchievement(res.getString(0), res.getString(4), 1, getDate().toString())
         else
             progressDB.addAchievement(res.getString(0), res.getString(4), 1, getDate().toString())
-        Toast.makeText(this, "Achievement added", Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Achievement added" + getDate(), Toast.LENGTH_SHORT).show()
         res.close()
     }
 

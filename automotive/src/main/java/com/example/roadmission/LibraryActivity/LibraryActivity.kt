@@ -120,7 +120,7 @@ class LibraryActivity : AppCompatActivity() {
     fun showAchievementsToday(view: View) {
         val res: Cursor = getDate()?.let { missionsDB.getAchievementByDate(it) }!!
         val buffer = StringBuffer()
-        buffer.append("\n${res.getString(3)}\n\n")
+        buffer.append("\n${getDate()}\n\n")
         while(res.moveToNext()){
             buffer.append("Mission : ${res.getString(0)}\n\n")
             buffer.append("Difficulty : ${res.getString(1)}\n\n")
