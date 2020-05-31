@@ -1,6 +1,7 @@
 package com.example.roadmission
 
 import android.app.Service
+import android.content.Context
 import android.content.Intent
 import android.location.Location
 import com.google.android.gms.location.LocationListener;
@@ -113,6 +114,10 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,GoogleApi
     }
 
     override fun onLocationChanged(location: Location) {
+        if(RightFragment.shouldShowPlaces) {
+            RightFragment.shouldShowPlaces = false
+            initPlaces()
+        }
         lastLocation = currentLocation
         currentLocation = location
         distance = lastLocation.distanceTo(currentLocation)/1.0

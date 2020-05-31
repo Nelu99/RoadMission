@@ -19,6 +19,7 @@ class RightFragment : Fragment() {
 
     companion object{
         lateinit var chronometer:Chronometer
+        var shouldShowPlaces = false
     }
     private lateinit var mView: View
 
@@ -40,26 +41,14 @@ class RightFragment : Fragment() {
                 putBoolean("should_update_chronometer", false)
                 apply()
             }
-            getLastPlaces()
+            shouldShowPlaces = true
             chronometer.base = sharedPrefs.getLong("chronometer_timer",0L)
         }
         else if (savedInstanceState != null) {
+            shouldShowPlaces = true
             chronometer.base = savedInstanceState.getLong("time")
-            getLastPlaces()
         }
         chronometer.start()
-    }
-
-    private fun getLastPlaces() {
-        val recyclerView = MainActivity.myActivity.findViewById<RecyclerView>(R.id.places_lst)
-        val recyclerLayoutManager = LinearLayoutManager(MainActivity.myContext)
-        recyclerView?.layoutManager = recyclerLayoutManager
-        recyclerView?.addItemDecoration(DividerItemDecoration(
-            recyclerView.context,
-            recyclerLayoutManager.orientation
-        ))
-        recyclerView?.adapter =
-            context?.let { PlacesRecyclerViewAdapter(LocationService.lastList, it) }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
