@@ -6,13 +6,45 @@
     tools:context=".MissionFragment">
 
     <TextView
-        android:id="@+id/fragment_button"
-        android:layout_centerHorizontal="true"
-        android:layout_centerVertical="true"
-        android:layout_width="400dp"
-        android:layout_height="150dp"
-        android:textSize="42sp"
+        android:layout_marginTop="15dp"
+        android:id="@+id/count_down_text"
+        android:layout_alignParentTop="true"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="32sp"
         android:textAlignment="center"
-        android:text="WORKS"/>
+        android:text="Time is up!"/>
+
+    <TextView
+        android:id="@+id/mission_title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/count_down_text"
+        android:textSize="32sp"
+        android:textAlignment="center"
+        android:text="Title"
+        />
+
+    <TextView
+        android:layout_marginStart="30dp"
+        android:id="@+id/mission_text"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@id/mission_difficulty"
+        android:layout_below="@id/mission_title"
+        android:textSize="24sp"
+        android:text="Mission : text"
+    />
+
+    <TextView
+        android:layout_marginBottom="15dp"
+        android:id="@+id/mission_difficulty"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:textSize="32sp"
+        android:textAlignment="center"
+        android:text="Difficulty : "
+        />
 
 </RelativeLayout>
