@@ -20,10 +20,7 @@ class RightFragment : Fragment() {
     companion object{
         lateinit var chronometer:Chronometer
     }
-
     private lateinit var mView: View
-    private lateinit var recyclerView: RecyclerView
-    private lateinit var nearbyPlaces: NearbyPlaces
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -34,10 +31,6 @@ class RightFragment : Fragment() {
         return mView
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-        nearbyPlaces()
-    }
     private fun startChronometer(savedInstanceState: Bundle?)
     {
         val sharedPrefs = activity?.getSharedPreferences("com.example.roadmission", Context.MODE_PRIVATE)
@@ -47,39 +40,32 @@ class RightFragment : Fragment() {
                 putBoolean("should_update_chronometer", false)
                 apply()
             }
+            getLastPlaces()
             chronometer.base = sharedPrefs.getLong("chronometer_timer",0L)
         }
         else if (savedInstanceState != null) {
-            chronometer.base = savedInstanceState.getLong("time");
+            chronometer.base = savedInstanceState.getLong("time")
+            getLastPlaces()
         }
-        chronometer.start();
+        chronometer.start()
+    }
+
+    private fun getLastPlaces() {
+        val recyclerView = MainActivity.myActivity.findViewById<RecyclerView>(R.id.places_lst)
+        val recyclerLayoutManager = LinearLayoutManager(MainActivity.myContext)
+        recyclerView?.layoutManager = recyclerLayoutManager
+        recyclerView?.addItemDecoration(DividerItemDecoration(
+            recyclerView.context,
+            recyclerLayoutManager.orientation
+        ))
+        recyclerView?.adapter =
+            context?.let { PlacesRecyclerViewAdapter(LocationService.lastList, it) }
     }
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putLong("time", chronometer.base)
-        nearbyPlaces.getPlaces()
-        recyclerView.adapter?.notifyDataSetChanged()
         super.onSaveInstanceState(outState)
     }
 
-    private fun nearbyPlaces() {
 
-        recyclerView = requireActivity().findViewById(R.id.places_lst);
-        val recyclerLayoutManager = LinearLayoutManager(context)
-        val data: MutableList<Place> = ArrayList()
-
-        recyclerView.layoutManager = recyclerLayoutManager
-        recyclerView.addItemDecoration(DividerItemDecoration(
-            recyclerView.context,
-            recyclerLayoutManager.orientation
-        ))
-        recyclerView.adapter = PlacesRecyclerViewAdapter(
-            data,
-            requireContext()
-        )
-
-        nearbyPlaces = NearbyPlaces(requireContext(), recyclerView, data)
-
-        nearbyPlaces.getPlaces()
-    }
 }

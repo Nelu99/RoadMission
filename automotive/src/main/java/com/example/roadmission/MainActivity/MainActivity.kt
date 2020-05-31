@@ -1,6 +1,7 @@
 package com.example.roadmission
 
 import android.Manifest
+import android.app.Activity
 import android.content.ComponentName
 import android.content.Context
 import android.content.Intent
@@ -18,12 +19,6 @@ import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
 import androidx.viewpager.widget.ViewPager
 import com.example.roadmission.LibraryActivity.LibraryActivity
-import com.google.android.gms.tasks.Task
-import com.google.android.libraries.places.api.Places
-import com.google.android.libraries.places.api.model.Place
-import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
-import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
-import com.google.android.libraries.places.api.net.PlacesClient
 import com.google.android.material.tabs.TabLayout
 
 
@@ -33,6 +28,7 @@ class MainActivity : AppCompatActivity() {
         lateinit var tts: TextToSpeechRM
         lateinit var myService:LocationService
         lateinit var myContext: Context
+        lateinit var myActivity: Activity
     }
 
     private lateinit var leftFragment: Fragment
@@ -51,6 +47,7 @@ class MainActivity : AppCompatActivity() {
         setTheme()
         setContentView(R.layout.activity_main)
         myContext = applicationContext
+        myActivity = this
         startFragment()
         tts = TextToSpeechRM(applicationContext)
         checkPermissions()

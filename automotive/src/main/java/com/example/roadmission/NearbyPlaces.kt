@@ -9,21 +9,20 @@ import com.google.android.libraries.places.api.net.FindCurrentPlaceRequest
 import com.google.android.libraries.places.api.net.FindCurrentPlaceResponse
 import com.google.android.libraries.places.api.net.PlacesClient
 
-class NearbyPlaces(var context: Context, var recyclerView: RecyclerView, var data: MutableList<Place>) {
+class NearbyPlaces(var context: Context) {
 
     private var placesClient: PlacesClient
+    private var API_KEY = "AIzaSyD_iMiqZQSByWjfyiibLO5Haud2-ySkCkI"
 
     init {
-        Places.initialize(context, "AIzaSyAmzuHW-fgs-I4Ur1TY-eNgJ0af1SxvB-o")
+        Places.initialize(context, API_KEY)
         placesClient = Places.createClient(context)
     }
 
-    fun getPlaces() {
+    fun getPlaces(callback: (MutableList<Place>) -> Unit){
         val placeFields: List<Place.Field> = listOf(
             Place.Field.NAME,
             Place.Field.ADDRESS,
-            Place.Field.PHONE_NUMBER,
-            Place.Field.WEBSITE_URI,
             Place.Field.RATING
         )
         val request = FindCurrentPlaceRequest.builder(placeFields).build()
@@ -31,17 +30,16 @@ class NearbyPlaces(var context: Context, var recyclerView: RecyclerView, var dat
         val placeResponse: Task<FindCurrentPlaceResponse> = placesClient.findCurrentPlace(request)
 
         placeResponse.addOnCompleteListener { task: Task<FindCurrentPlaceResponse?> ->
-            if (task.isSuccessful) {
+            run {
                 val placesList: MutableList<Place> = ArrayList()
-                val response = task.result
-
-                for (place in response!!.placeLikelihoods) {
-                    placesList.add(place.place)
+                try {
+                    val response = task.result
+                    for (place in response!!.placeLikelihoods) {
+                        placesList.add(place.place)
+                    }
+                    callback(placesList)
                 }
-
-                data.clear()
-                data.addAll(placesList)
-                recyclerView.adapter?.notifyDataSetChanged()
+                catch (x: Exception){}
             }
         }
     }

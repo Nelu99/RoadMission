@@ -33,12 +33,8 @@ class PlacesRecyclerViewAdapter(private val placesList: List<Place>, ctx: Contex
         val place = placesList[position]
         holder.name.text = place.name
         holder.address.text = place.address
-        holder.phone.text = place.phoneNumber
-        if (place.websiteUri != null) {
-            holder.website.text = place.websiteUri.toString()
-        }
-        if (place.rating!! > -1) {
-            holder.ratingBar.numStars = place.rating as Int
+        if (place.rating != null) {
+            holder.ratingBar.numStars = place.rating!!.toInt()
         } else {
             holder.ratingBar.visibility = View.GONE
         }
@@ -48,8 +44,6 @@ class PlacesRecyclerViewAdapter(private val placesList: List<Place>, ctx: Contex
     inner class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
         var name: TextView = view.findViewById(R.id.name)
         var address: TextView = view.findViewById(R.id.address)
-        var phone: TextView = view.findViewById(R.id.phone)
-        var website: TextView = view.findViewById(R.id.website)
         var ratingBar: RatingBar = view.findViewById(R.id.rating)
 
     }

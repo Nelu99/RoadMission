@@ -15,6 +15,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="@style/TextAppearance.AppCompat.Large"
         app:layout_constraintLeft_toLeftOf="parent"
+        android:textSize="32sp"
         app:layout_constraintRight_toRightOf="parent"
         app:layout_constraintTop_toBottomOf="parent" />
     <TextView
@@ -22,41 +23,15 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="4dp"
+        android:textSize="24sp"
         android:layout_below="@id/name"/>
-    <TextView
-        android:id="@+id/phone_l"
-        android:layout_marginTop="4dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:text="Phone: "
-        android:layout_below="@id/address" />
-    <TextView
-        android:id="@+id/phone"
-        android:layout_marginTop="4dp"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/address"
-        android:layout_toRightOf="@id/phone_l" />
-    <TextView
-        android:id="@+id/website_l"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="@style/TextAppearance.AppCompat.Medium"
-        android:text="Website: "
-        android:layout_below="@id/phone_l" />
-    <TextView
-        android:id="@+id/website"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@id/phone_l"
-        android:layout_toEndOf="@id/website_l" />
+
     <RatingBar
         android:id="@+id/rating"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:numStars="5"
         android:isIndicator="true"
-        android:layout_below="@id/website_l"/>
+        android:layout_below="@id/address"/>
 
 </RelativeLayout>
