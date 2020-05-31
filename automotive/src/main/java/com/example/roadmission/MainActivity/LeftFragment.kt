@@ -91,8 +91,19 @@ class LeftFragment : PreferenceFragmentCompat() {
     }
 
     private fun restart(){
+        val sharedPrefs = activity?.getSharedPreferences("com.example.roadmission", Context.MODE_PRIVATE);
         val intent: Intent? = activity?.intent
-        intent?.putExtra("CHANGED_THEME", true);
+        intent?.putExtra("CHANGED_THEME", true)
+        if (sharedPrefs != null) {
+            with (sharedPrefs.edit()) {
+                putLong("chronometer_timer", RightFragment.chronometer.base)
+                apply()
+            }
+            with (sharedPrefs.edit()) {
+                putBoolean("should_update_chronometer", true)
+                apply()
+            }
+        }
         activity?.finish()
         startActivity(intent)
     }
