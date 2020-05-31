@@ -151,7 +151,7 @@ class MissionsActivity : AppCompatActivity() {
             progressDB.updateAchievement(res.getString(0), res.getString(4), 1, getDate().toString())
         else
             progressDB.addAchievement(res.getString(0), res.getString(4), 1, getDate().toString())
-        Toast.makeText(this, "Achievement added" + getDate(), Toast.LENGTH_SHORT).show()
+        Toast.makeText(this, "Achievement added", Toast.LENGTH_SHORT).show()
         res.close()
     }
 
