@@ -9,6 +9,11 @@ import android.view.ViewGroup
 import android.widget.Chronometer
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.recyclerview.widget.DividerItemDecoration
+import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
+import com.google.android.libraries.places.api.model.Place
+
 
 class RightFragment : Fragment() {
 
@@ -17,6 +22,9 @@ class RightFragment : Fragment() {
     }
 
     private lateinit var mView: View
+    private lateinit var recyclerView: RecyclerView
+    private lateinit var nearbyPlaces: NearbyPlaces
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -24,6 +32,11 @@ class RightFragment : Fragment() {
         mView = inflater.inflate(R.layout.fragment_right, container, false)
         startChronometer(savedInstanceState)
         return mView
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        nearbyPlaces()
     }
     private fun startChronometer(savedInstanceState: Bundle?)
     {
@@ -44,6 +57,29 @@ class RightFragment : Fragment() {
 
     override fun onSaveInstanceState(outState: Bundle) {
         outState.putLong("time", chronometer.base)
+        nearbyPlaces.getPlaces()
+        recyclerView.adapter?.notifyDataSetChanged()
         super.onSaveInstanceState(outState)
+    }
+
+    private fun nearbyPlaces() {
+
+        recyclerView = requireActivity().findViewById(R.id.places_lst);
+        val recyclerLayoutManager = LinearLayoutManager(context)
+        val data: MutableList<Place> = ArrayList()
+
+        recyclerView.layoutManager = recyclerLayoutManager
+        recyclerView.addItemDecoration(DividerItemDecoration(
+            recyclerView.context,
+            recyclerLayoutManager.orientation
+        ))
+        recyclerView.adapter = PlacesRecyclerViewAdapter(
+            data,
+            requireContext()
+        )
+
+        nearbyPlaces = NearbyPlaces(requireContext(), recyclerView, data)
+
+        nearbyPlaces.getPlaces()
     }
 }
