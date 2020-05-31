@@ -19,7 +19,7 @@ class ProgressDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NA
     override fun onCreate(db: SQLiteDatabase?) {
         db!!.execSQL(
             "CREATE TABLE $TABLE_NAME (MISSION TEXT PRIMARY KEY," +
-                    "MISSION TEXT,DIFFICULTY TEXT,COMPLETIONS INTEGER,DATE TEXT)")
+                    "DIFFICULTY TEXT,COMPLETIONS INTEGER,DATE TEXT)")
     }
 
     override fun onUpgrade(db: SQLiteDatabase?, oldVersion: Int, newVersion: Int) {
@@ -27,34 +27,32 @@ class ProgressDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         onCreate(db)
     }
 
-    fun addAchievement(mission: String, difficulty: String, completions: Int, date: String): Boolean {
-        var db = this.writableDatabase
-        var contentValues = ContentValues()
+    fun addAchievement(mission: String, difficulty: String, completions: Int, date: String) {
+        val db = this.writableDatabase
+        val contentValues = ContentValues()
         contentValues.put(COL_1, mission)
         contentValues.put(COL_2, difficulty)
         contentValues.put(COL_3, completions)
         contentValues.put(COL_4, date)
-        var result = db.insert(TABLE_NAME, null ,contentValues)
-        return when(result.toInt()) {
-            -1 -> false
-            else -> true
-        }
+        db.insert(TABLE_NAME, null ,contentValues)
     }
 
-    fun updateAchievement(mission: String, difficulty: String, completions: Int, date: String): Boolean {
-        var db = this.writableDatabase
-        var contentValues = ContentValues()
+    fun updateAchievement(mission: String, difficulty: String, completions: Int, date: String) {
+        val db = this.writableDatabase
+        val query = "select * from $TABLE_NAME where MISSION = '$mission'"
+        val res = db.rawQuery(query, null)
+        val contentValues = ContentValues()
         contentValues.put(COL_1, mission)
         contentValues.put(COL_2, difficulty)
         contentValues.put(COL_3, completions)
         contentValues.put(COL_4, date)
         db.update(TABLE_NAME, contentValues, "MISSION = ?", Array(1){mission});
-        return true
+        res.close()
     }
 
     fun isAchievementRegistered(mission: String): Boolean {
         val db = writableDatabase
-        val query = "select * from day_table where ID = '$mission'"
+        val query = "select * from $TABLE_NAME where MISSION = '$mission'"
         val res = db.rawQuery(query, null)
         if (res.count <= 0) {
             res.close()
