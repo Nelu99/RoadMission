@@ -41,10 +41,11 @@ class ProgressDatabase(context: Context) : SQLiteOpenHelper(context, DATABASE_NA
         val db = this.writableDatabase
         val query = "select * from $TABLE_NAME where MISSION = '$mission'"
         val res = db.rawQuery(query, null)
+        res?.moveToFirst()
         val contentValues = ContentValues()
         contentValues.put(COL_1, mission)
         contentValues.put(COL_2, difficulty)
-        contentValues.put(COL_3, completions)
+        contentValues.put(COL_3, res.getInt(2) + completions)
         contentValues.put(COL_4, date)
         db.update(TABLE_NAME, contentValues, "MISSION = ?", Array(1){mission});
         res.close()
