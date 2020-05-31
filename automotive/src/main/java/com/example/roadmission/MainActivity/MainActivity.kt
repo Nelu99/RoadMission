@@ -32,6 +32,7 @@ class MainActivity : AppCompatActivity() {
     companion object {
         lateinit var tts: TextToSpeechRM
         lateinit var myService:LocationService
+        lateinit var myContext: Context
     }
 
     private lateinit var leftFragment: Fragment
@@ -41,28 +42,27 @@ class MainActivity : AppCompatActivity() {
     private lateinit var tabLayout: TabLayout
     private lateinit var locationManager: LocationManager
     private lateinit var sc: ServiceConnection
-    private lateinit var weather:Weather
+    private lateinit var weather: Weather
 
     private var status: Boolean = false
-    private var missionsDatabase:MissionsDatabase = MissionsDatabase(this)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setTheme()
         setContentView(R.layout.activity_main)
+        myContext = applicationContext
         startFragment()
         tts = TextToSpeechRM(applicationContext)
         checkPermissions()
-        initDatabase()
         startLocationService()
-        WeatherExecute()
+        weather = Weather()
+        android.os.Handler().postDelayed(Runnable {weatherExecute()}, 2000)
     }
 
-    private fun WeatherExecute()
+    private fun weatherExecute()
     {
-        weather = Weather()
-        android.os.Handler().postDelayed(Runnable {weather.execute()}, 5000) //5 seconds for MyService to initialize
-        android.os.Handler().postDelayed(Runnable {WeatherExecute()}, 360000) //1hour
+        weather.execute()
+        android.os.Handler().postDelayed(Runnable {weatherExecute()}, 360000) //1hour
     }
 
     fun missionButton(view : View) {
@@ -73,22 +73,8 @@ class MainActivity : AppCompatActivity() {
         startActivity(Intent(this@MainActivity, LibraryActivity::class.java))
     }
 
-    private fun initDatabase(){
-        val sharedPrefs = getSharedPreferences("com.example.roadmission", Context.MODE_PRIVATE);
-        val databaseFirstSetup = sharedPrefs.getBoolean("database_first_setup", true)
-        if(databaseFirstSetup) {
-            missionsDatabase.createMissions()
-            if (sharedPrefs != null) {
-                with (sharedPrefs.edit()) {
-                    putBoolean("database_first_setup", false)
-                    apply()
-                }
-            }
-        }
-    }
-
     private fun bindService(){
-        if(status == true)
+        if(status)
         {
             return
         }
@@ -98,14 +84,14 @@ class MainActivity : AppCompatActivity() {
     }
 
     override fun onDestroy() {
-        if(status == true) {
+        if(status) {
             unbindService()
         }
         super.onDestroy()
     }
 
-    fun unbindService(){
-        if(status == false)
+    private fun unbindService(){
+        if(!status)
         {
             return
         }
@@ -129,7 +115,7 @@ class MainActivity : AppCompatActivity() {
         {
             return
         }
-        if(status == false)
+        if(!status)
         {
             bindService()
         }
@@ -153,7 +139,7 @@ class MainActivity : AppCompatActivity() {
     ) {
         when (requestCode) {
             1000 -> {
-                if (grantResults.size > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED)
+                if (grantResults.isNotEmpty() && grantResults[0] == PackageManager.PERMISSION_GRANTED)
                     Toast.makeText(this, "GRANTED", Toast.LENGTH_SHORT).show()
                 else
                     Toast.makeText(this, "DENIED", Toast.LENGTH_SHORT).show()

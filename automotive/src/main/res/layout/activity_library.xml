@@ -51,7 +51,8 @@
             android:layout_height="75dp"
             android:background="@drawable/button_full"
             android:textSize="32sp"
-            android:text="Today's Missions"/>
+            android:onClick="showAchievementsToday"
+            android:text="Today's Overview"/>
 
         <Button
             android:id="@+id/library_button_all_completed"
@@ -62,6 +63,7 @@
             android:layout_height="75dp"
             android:background="@drawable/button_full"
             android:textSize="32sp"
+            android:onClick="showAllAchievements"
             android:text="Achievements"/>
 
         <Button
@@ -73,6 +75,7 @@
             android:layout_height="75dp"
             android:background="@drawable/button_full"
             android:textSize="32sp"
+            android:onClick="showAllMissions"
             android:text="All missions"/>
 
     </RelativeLayout>

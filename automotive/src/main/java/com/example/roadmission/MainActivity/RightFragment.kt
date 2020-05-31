@@ -1,7 +1,7 @@
+
 package com.example.roadmission
 
 import android.os.Bundle
-import android.os.SystemClock
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -39,14 +39,10 @@ class RightFragment : Fragment() {
     private fun startChronometer(savedInstanceState: Bundle?)
     {
         chronometer = mView.findViewById(R.id.chronometer)
-        if (LocationService.shouldResetChronometer) {
-            if (savedInstanceState != null)
-                chronometer.base = savedInstanceState.getLong("time");
-            else
-                chronometer.base = SystemClock.elapsedRealtime()
-            chronometer.start()
+        if (savedInstanceState != null) {
+            chronometer.base = savedInstanceState.getLong("time");
         }
-
+        chronometer.start();
     }
 
     override fun onSaveInstanceState(outState: Bundle) {

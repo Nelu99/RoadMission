@@ -28,8 +28,6 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,GoogleApi
     private var minutesStopped:Int = 0
     private var distance:Double = 0.0
 
-    companion object{ var shouldResetChronometer = true }
-
     init {
         RightFragment.chronometer.base = SystemClock.elapsedRealtime()
         RightFragment.chronometer.start()
@@ -37,12 +35,8 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,GoogleApi
     }
 
     private fun updateStop(){
+        RightFragment.chronometer.start()
         minutesStopped += 1
-        if(shouldResetChronometer && minutesStopped >= 5)
-        {
-            RightFragment.chronometer.base = SystemClock.elapsedRealtime()
-            RightFragment.chronometer.stop()
-        }
         android.os.Handler().postDelayed({updateStop()}, 1000) //1minute
     }
 
@@ -63,7 +57,7 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,GoogleApi
         }
     }
 
-    fun createLocationRequest(){
+    private fun createLocationRequest(){
         mlocationRequest = LocationRequest.create()
         mlocationRequest.interval = INTERVAL
         mlocationRequest.fastestInterval = FASTESTINTERVAL
@@ -93,10 +87,12 @@ class LocationService : Service(), GoogleApiClient.ConnectionCallbacks,GoogleApi
         lastLocation = currentLocation
         currentLocation = location
         distance = lastLocation.distanceTo(currentLocation)/1.0
-        if(distance > 1.00 && minutesStopped >= 5) {
-            RightFragment.chronometer.base = SystemClock.elapsedRealtime()
-            RightFragment.chronometer.start()
-            shouldResetChronometer = true
+        if(distance > 1.00) {
+            if(minutesStopped >= 5)
+            {
+                RightFragment.chronometer.setBase(SystemClock.elapsedRealtime());
+                RightFragment.chronometer.stop();
+            }
             minutesStopped = 0
         }
     }
