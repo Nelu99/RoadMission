@@ -27,6 +27,7 @@ class RightFragment : Fragment() {
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View {
+        shouldShowPlaces = true
         mView = inflater.inflate(R.layout.fragment_right, container, false)
         startChronometer(savedInstanceState)
         return mView
@@ -41,11 +42,9 @@ class RightFragment : Fragment() {
                 putBoolean("should_update_chronometer", false)
                 apply()
             }
-            shouldShowPlaces = true
             chronometer.base = sharedPrefs.getLong("chronometer_timer",0L)
         }
         else if (savedInstanceState != null) {
-            shouldShowPlaces = true
             chronometer.base = savedInstanceState.getLong("time")
         }
         chronometer.start()

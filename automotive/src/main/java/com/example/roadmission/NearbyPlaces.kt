@@ -39,7 +39,7 @@ class NearbyPlaces(var context: Context) {
                     }
                     callback(placesList)
                 }
-                catch (x: Exception){}
+                catch (x: Exception){callback(ArrayList())}
             }
         }
     }

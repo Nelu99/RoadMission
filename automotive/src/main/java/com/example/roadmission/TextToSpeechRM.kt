@@ -18,4 +18,7 @@ class TextToSpeechRM(mContext: Context) {
     fun speak(toSpeak: String) {
         textToSpeech.speak(toSpeak, TextToSpeech.QUEUE_FLUSH, null,"")
     }
+    fun stop() {
+        textToSpeech.stop()
+    }
 }

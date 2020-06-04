@@ -11,7 +11,9 @@ import android.location.LocationManager
 import android.os.Bundle
 import android.os.IBinder
 import android.view.View
+import android.widget.TextView
 import android.widget.Toast
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.app.AppCompatActivity
 import androidx.core.content.ContextCompat
 import androidx.fragment.app.Fragment
@@ -59,7 +61,7 @@ class MainActivity : AppCompatActivity() {
     private fun weatherExecute()
     {
         weather.execute()
-        android.os.Handler().postDelayed(Runnable {weatherExecute()}, 360000) //1hour
+        //android.os.Handler().postDelayed(Runnable {weatherExecute()}, 360000) //1hour
     }
 
     fun missionButton(view : View) {
@@ -188,6 +190,30 @@ class MainActivity : AppCompatActivity() {
     }
 
     fun aboutDialog(view: View) {
+        val buffer = StringBuffer()
+        buffer.append("\nProiect colectiv realizat sub indrumarea firmei Elektrobit Automotive\n")
+        buffer.append("\nCoordonator : Alin Brindusescu\n")
+        buffer.append("\nTeam leader : Nelu Maciuca\n")
+        buffer.append("\nTeam member : Catalin Iusan\n")
+        buffer.append("\nTeam member : Ioan Majdan\n")
+        buffer.append("\nAplicatia RoadMission a fost creata pentru divertismentul persoanelor" +
+                " care parcurg distanțe considerabile frecvent, incercand sa ofere o experiență" +
+                " mai plăcută pe durata transportului. Acest lucru este realizat prin acordarea " +
+                "de misiuni bazate pe numărul de pasageri și vreme, de diferite dificultăți. De " +
+                "asemenea sunt oferite recomandări pentru stationari pentru a evita oboseala, " +
+                "alături de o lista cu locuri și activități recomandate pe durata pauzei.\n")
+        showDialog(buffer.toString())
+    }
+
+    private fun showDialog(Message: String?) {
+        val builder = AlertDialog.Builder(this)
+        builder.setCancelable(true)
+        builder.setMessage(Message)
+        val alert = builder.create()
+        alert.show()
+        alert.window!!.attributes
+        val textViewMessage = alert.findViewById<View>(android.R.id.message) as TextView?
+        textViewMessage!!.textSize = 32f
     }
 
     inner class PagerAdapter(fm: FragmentManager) :

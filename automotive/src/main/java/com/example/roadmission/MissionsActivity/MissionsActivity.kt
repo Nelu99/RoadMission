@@ -71,6 +71,15 @@ class MissionsActivity : AppCompatActivity() {
                     "and PASSENGERS = '$passengers'", null)
         if(res.count == 0) {
             res.close()
+            val builder = AlertDialog.Builder(this)
+            builder.setCancelable(true)
+            builder.setMessage("No mission found")
+            val alert = builder.create()
+            alert.show()
+            alert.window!!.attributes
+            val textViewMessage = alert.findViewById<View>(android.R.id.message) as TextView?
+            textViewMessage!!.textSize = 32f
+            MainActivity.tts.speak("No missions found")
             return
         }
         val random: Int = Random().nextInt(res.count)
@@ -94,10 +103,12 @@ class MissionsActivity : AppCompatActivity() {
             "HARD" -> 3
             else -> 6
         }
+        MainActivity.tts.speak("Your mission is " + res.getString(0) +
+            "." + res.getString(1) + "Hurry up, you only have $countDownValue minutes for this task!")
         val textCountDown = findViewById<TextView>(R.id.count_down_text)
         textCountDown.text = countDownValue.toString()
         timer?.cancel()
-        timer = object : CountDownTimer((1000 * countDownValue).toLong(), 1000) {
+        timer = object : CountDownTimer((5000 * countDownValue).toLong(), 1000) {
             override fun onTick(millisUntilFinished: Long) {
                 textCountDown.text = String.format("%d min, %d sec",
                     TimeUnit.MILLISECONDS.toMinutes( millisUntilFinished),
@@ -128,6 +139,7 @@ class MissionsActivity : AppCompatActivity() {
             when(which){
                 DialogInterface.BUTTON_POSITIVE -> addProgressAchievement()
                 DialogInterface.BUTTON_NEGATIVE -> {
+                    MainActivity.tts.speak("Mission Failed, you ran out of time")
                     Toast.makeText(this, "Mission failed", Toast.LENGTH_SHORT).show()
                     res.close()
                 }
@@ -152,6 +164,7 @@ class MissionsActivity : AppCompatActivity() {
         else
             progressDB.addAchievement(res.getString(0), res.getString(4), 1, getDate().toString())
         Toast.makeText(this, "Achievement added", Toast.LENGTH_SHORT).show()
+        MainActivity.tts.speak("Congratulations on completing the mission, the achievement was added to your library")
         res.close()
     }
 
@@ -227,11 +240,13 @@ class MissionsActivity : AppCompatActivity() {
 
     override fun onBackPressed() {
         timer?.cancel()
+        MainActivity.tts.stop()
         moveTaskToBack(true)
     }
 
     fun backButton(view: View) {
         timer?.cancel()
+        MainActivity.tts.stop()
         finish()
     }
 
